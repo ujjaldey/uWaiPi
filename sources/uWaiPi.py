@@ -294,6 +294,7 @@ def sendEmail(subject):
 		sleep(0.1)
 
 		try:
+			displayEmailMsg()
 			# Composes the mail string
 			mailStr = "From: %s\r\nTo: %s\r\nSubject: %s\r\n\r\n" % (SMTP_USER_ID, ", ".join(EMAIL_RECEIVER_ADDRESS.split(",")), subject + " [" + getCurrentTime().strftime("%d-%m-%Y %H:%M:%S") + "]")
 			mailStr += "Hey there!\n\nBelow are the last %s lines from the log file:\n\n" % EMAIL_LOG_LINE
@@ -394,7 +395,6 @@ def triggerSwitch(currSchedule, currDuration, durationList, adhocRun = False):
 
 		# Sends email and display message
 		sendEmail(EMAIL_SUBJECT_ACTIVE)
-		displayEmailMsg()
 	except KeyboardInterrupt:
 		return
 
@@ -490,17 +490,20 @@ def displayRunningMsg(currTime, lastSchedule, lastDuration, nextSchedule, nextDu
 
 		# Displays the Next Run and the Current time based on runningMsgInd
 		if (runningMsgInd == 0):
-			lcd.lcd_display_string("Last run (%is):" % (lastDuration), 1)
-			lcd.lcd_display_string(lastSchedule, 2)
+			str1 = "Last run (%ss):" % (lastDuration)
+			str2 = lastSchedule
 			runningMsgInd += 1
 		elif (runningMsgInd == 1):
-			lcd.lcd_display_string("Current time:", 1)
-			lcd.lcd_display_string(currTime.strftime("%d-%m-%Y %H:%M"), 2)
+			str1 = "Current time:"
+			str2 = currTime.strftime("%d-%m-%Y %H:%M")
 			runningMsgInd += 1
 		else:
-			lcd.lcd_display_string("Next run (%is):" % (nextDuration), 1)
-			lcd.lcd_display_string(nextSchedule, 2)
+			str1 = "Next run (%ss):" % (nextDuration)
+			str2 = nextSchedule
 			runningMsgInd = 0
+
+		lcd.lcd_display_string(str1, 1)
+		lcd.lcd_display_string(str2, 2)
 	except KeyboardInterrupt:
 		return
 
@@ -617,7 +620,6 @@ def triggerAction(command):
 		skipNextRun(channel)
 	elif (command == "SEND_LOG"):
 		sendEmail(EMAIL_SUBJECT_RUN)
-		displayEmailMsg()
 	elif (command == "RESTART"):
 		global keepRunning
 		global restart
@@ -767,7 +769,6 @@ if (__name__ == "__main__"):
 				if (EMAIL_ENABLED == "Y"):
 					displayOn = True
 					sendEmail(EMAIL_SUBJECT_RUN)
-					displayEmailMsg()
 					counterDisplayOnOff = 0
 				counterSendEmail = 0
 

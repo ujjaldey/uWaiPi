@@ -1,9 +1,19 @@
 # uWaiPi #
+*uWaiPi* is a Time-driven Automatic Plant Watering System.
 
-*uWaipi* is a Time-driven Automatic Plant Watering System.
+### Features ###
+* Time-driven automatic watering system
+* Constantly displays the running information
+* Schedule and duration can be customizable as per requirements
+* Multiple schedules can be setup
+* Capable of identifying and running any missed schedules
+* Automatically turns off the backlight of the LCD display
+* Email features - notification on watering the plant
+* Buttons available to execute on adhoc basis or skip the next executions
+* Commands can be send via emails
 
 ### Platforms ###
-*uWaipi* works on [Raspberry Pi](https://www.raspberrypi.org/). It has been tested in the following versions of Raspberry Pi:
+*uWaiPi* works on [Raspberry Pi](https://www.raspberrypi.org/). It has been tested in the following versions of Raspberry Pi:
 
 * Raspberry Pi 2 Model B
 * Raspberry Pi 3
@@ -12,13 +22,11 @@
 The current version of has been developed on Raspbian Jessie. You can download the same from [here](https://www.raspberrypi.org/downloads/raspbian/).
 
 ### List of files ###
-
 The downloaded package contatins the list of files and directories as below:
 ```
 uWaiPi
 │   install.sh
 │   README.md
-│
 └───sources
         asyncFunc.py
         createSmtpFile.py
@@ -33,15 +41,13 @@ uWaiPi
 ```
 
 ### Download ###
-
-*uWaipi* can be downloaded from [Git](https://github.com/ujjaldey/uWaiPi/archive/master.zip). You can run the below command directly from your Raspberry Pi terminal:
+*uWaiPi* can be downloaded from [Git](https://github.com/ujjaldey/uWaiPi/archive/master.zip). You can run the below command directly from your Raspberry Pi terminal:
 ```bash
 wget https://github.com/ujjaldey/uWaiPi/archive/master.zip
 ```
 
 ### Installation & Configuration ###
-
-*uWaipi* is pretty simple to install and configure. Just download the package, run the installation script, and follow the on-screen instructions. That should be it! Make sure you are having the lastest stable version of the operating system. The detailed installation steps are described as below:
+*uWaiPi* is pretty simple to install and configure. Just download the package, run the installation script, and follow the on-screen instructions. That should be it! Make sure you are having the lastest stable version of the operating system. The detailed installation steps are described as below:
 
 Once the package is downloaded, extract the package to a temporary directory:
 ```bash
@@ -57,7 +63,7 @@ chmod -R 755 uWaiPiSrc/
 Go to the directory and run the installation script:
 ```bash
 cd uWaiPiSrc/
-install.sh
+./install.sh
 ```
 
 A banner will be shown as below:
@@ -206,6 +212,23 @@ If you have enabled auto-start after reboot, *uWaiPi* will start automatically o
 startup.sh
 ```
 
+### Interfaces/Controls ###
+*uWaiPi* interfaces with the users through a LCD output display and three physical input buttons. The input buttons are having the following functionalities:
+* Wakes up the display
+* Runs on adhoc basis
+* Skips the next executions
+
+*uWaiPi* can also be controlled via email (email feature has to be enabled). A trusted email id has to be setup during the installation. Commands can be sent through the subect line of the email and should be sent to the SMTP mail id (configured during installation). The subject of the email should have the following format:
+```
+[uWaiPi] <command>
+```
+Valid commands:
+
+* SEND_LOG - To send the recent execution logs
+* RUN_NOW - To run immediately
+* SKIP_NEXT - To skip the next execution
+* RESTART - To restart the application
+
 ### Contact ###
 For any bugs/issue/feedback/suggestions, please contact me at my email id ujjaldey@gmail.com. You can also visit my [website](http://ujjaldey.in/project/) for further information.
 
@@ -213,11 +236,5 @@ For any bugs/issue/feedback/suggestions, please contact me at my email id ujjald
 * [The Raspberry Pi Guy](https://github.com/the-raspberry-pi-guy/lcd) - for the I2C library
 * [Denis Pleic](https://gist.github.com/DenisFromHR/cc863375a6e19dce359d) - for further enhacements on I2C library
 
-### License ###
-Copyright (c) 2016 Ujjal Dey
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+### Copyrights ###
+Copyright (c) 2016 [Ujjal Dey](http://ujjaldey.in/)
