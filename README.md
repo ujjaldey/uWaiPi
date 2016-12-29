@@ -228,6 +228,8 @@ Valid commands:
 * RUN_NOW - To run immediately
 * SKIP_NEXT - To skip the next execution
 * RESTART - To restart the application
+* REBOOT - To reboot Raspberry Pi
+* SHUTDOWN - To shutdown Raspberry Pi
 
 ### Contact ###
 For any bugs/issue/feedback/suggestions, please contact me at my email id ujjaldey@gmail.com. You can also visit my [website](http://ujjaldey.in/project/) for further information.

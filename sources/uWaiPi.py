@@ -45,6 +45,7 @@ from time import time, sleep
 ##########################################################################################
 # Generic parameters
 APP_NAME = "uWaiPi"
+APP_VERSION = "3.1"
 DEFAULT_TIMEKEEPER_VALUE = "27-05-2016 00:00|0"
 NEWLINE_CHAR = "\n"
 SCREEN_REFRESH_FREQ_SEC = 2
@@ -466,8 +467,9 @@ def displayWelcomeMsg():
 	sleep(.05)
 	controlDisplayOnOff(True)
 	lcd.lcd_clear()
-	for i in range(len(APP_NAME)):
-		lcd.lcd_display_string_pos(APP_NAME[i], 1, i)
+	appDetails = APP_NAME + " " + APP_VERSION
+	for i in range(len(appDetails)):
+		lcd.lcd_display_string_pos(appDetails[i], 1, i)
 		sleep(.3)
 	lcd.lcd_display_string_pos("-Ujjal Dey", 2, 6)
 	sleep(2)

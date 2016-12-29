@@ -41,7 +41,7 @@ import Crypto.Cipher.AES as AES
 PARAMETER_FILE = "parameter.lst"
 SMTP_FILE = ".smtpDetails"
 
-VALID_COMMANDS = ["RUN_NOW", "SKIP_NEXT", "SEND_LOG", "RESTART"]
+VALID_COMMANDS = ["RUN_NOW", "SKIP_NEXT", "SEND_LOG", "RESTART", "SHUTDOWN", "REBOOT"]
 
 ##########################################################################################
 # Runs any shell command.
@@ -145,17 +145,21 @@ if (__name__ == "__main__"):
 						if (validateSender(sender)):
 							if (validateCommand(command)):
 								try:
-									s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-									s.connect(("localhost", int(SOCKET_LISTENER_PORT)))
-									s.sendall(command)
-									s.close()
-								
-									if (command == "RESTART"):
-										runCommand("touch ./.restart")
+									if (command == "SHUTDOWN" or command == "REBOOT"):
+										sendEmail("SUCCESS", sender, command)
+										runCommand("sudo %s now" % (command.lower()))
+									else:
+										s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+										s.connect(("localhost", int(SOCKET_LISTENER_PORT)))
+										s.sendall(command)
+										s.close()
+									
+										if (command == "RESTART"):
+											runCommand("touch ./.restart")
 
-									sendEmail("SUCCESS", sender, command)
-								except Exception, x:
-									print x
+										sendEmail("SUCCESS", sender, command)
+								except Exception, error:
+									print error
 									pass
 							else:
 								sendEmail("INVALID_COMMAND", sender, command)
